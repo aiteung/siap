@@ -3,7 +3,7 @@
 siap database access using sql server
 
 ```.env
-MSSQLSTRING=server%3Dhost%3Buser%20id%3Duser%3Bpassword%3Dpass%3Bport%3D1433%3Bdatabase%3Ddbname%3B
+MSSQLSTRING="server=HOST;user id=USER;password=PASS;port=61782;database=DBNAME;"
 ```
 
 if u dont like using .env just use var
