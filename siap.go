@@ -86,7 +86,7 @@ func ReadEmployees() (int, error) {
 		return -1, err
 	}
 
-	tsql := fmt.Sprintf("SELECT Id, Name, Location FROM TestSchema.Employees;")
+	tsql := "SELECT Id, Name, Location FROM TestSchema.Employees;"
 
 	// Execute query
 	rows, err := db.QueryContext(ctx, tsql)
@@ -126,7 +126,7 @@ func UpdateEmployee(name string, location string) (int64, error) {
 		return -1, err
 	}
 
-	tsql := fmt.Sprintf("UPDATE TestSchema.Employees SET Location = @Location WHERE Name = @Name")
+	tsql := "UPDATE TestSchema.Employees SET Location = @Location WHERE Name = @Name"
 
 	// Execute non-query with named parameters
 	result, err := db.ExecContext(
@@ -151,7 +151,7 @@ func DeleteEmployee(name string) (int64, error) {
 		return -1, err
 	}
 
-	tsql := fmt.Sprintf("DELETE FROM TestSchema.Employees WHERE Name = @Name;")
+	tsql := "DELETE FROM TestSchema.Employees WHERE Name = @Name;"
 
 	// Execute non-query with named parameters
 	result, err := db.ExecContext(ctx, tsql, sql.Named("Name", name))
