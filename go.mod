@@ -3,8 +3,8 @@ module github.com/aiteung/siap
 go 1.19
 
 require (
-	github.com/whatsauth/watoken v0.0.8
-	github.com/whatsauth/whatsauth v0.0.7
+	github.com/whatsauth/watoken v0.1.0
+	github.com/whatsauth/whatsauth v0.0.8
 )
 
 require (
