@@ -20,6 +20,7 @@ var usertable1 = whatsauth.LoginInfo{
 	Phone:    "Phone",
 	Username: "Nama",
 	Uuid:     "dbo.Pass",
+	Login:    "md5",
 }
 
 func TestAtapi(t *testing.T) {

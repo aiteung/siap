@@ -68,7 +68,13 @@ func GetHashPasswordfromUsername(username string, usertables []whatsauth.LoginIn
 func UpdatePasswordfromUsername(username string, usertables []whatsauth.LoginInfo, db *sql.DB) (newPassword string) {
 	for _, table := range usertables {
 		newPassword = watoken.RandomString(10)
-		hashpass := watoken.GetMD5Hash(newPassword)
+		var hashpass string
+		switch table.Login {
+		case "md5":
+			hashpass = watoken.GetMD5Hash(newPassword)
+		case "2md5":
+			hashpass = watoken.GetMD5Hash(watoken.GetMD5Hash(newPassword))
+		}
 		var temp interface{}
 		q := "update %s set %s = '%s' where %s = '%s'"
 		tsql := fmt.Sprintf(q, table.Uuid,
