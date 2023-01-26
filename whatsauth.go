@@ -28,21 +28,18 @@ func GetLoginInfofromPhoneNumber(phonenumber string, usertables []whatsauth.Logi
 
 func GetUsernamefromPhonenumber(phone_number string, usertables []whatsauth.LoginInfo, db *sql.DB) (username string) {
 	for _, table := range usertables {
-		username = GetUsernamefromPhonenumberInTable(phone_number, table, db)
+		q := "select %s from %s where %s = '%s'"
+		tsql := fmt.Sprintf(q, table.Username, table.Uuid,
+			table.Phone, phone_number)
+		err := db.QueryRow(tsql).Scan(&username)
+		if err == sql.ErrNoRows {
+			fmt.Printf("GetUsernamefromPhonenumber, no user in table : %s", table.Uuid)
+		} else if err != nil {
+			fmt.Printf("GetUsernamefromPhonenumber: %v\n", err)
+		}
 		if username != "" {
 			break
 		}
-	}
-	return
-}
-
-func GetUsernamefromPhonenumberInTable(phone_number string, tabel whatsauth.LoginInfo, db *sql.DB) (username string) {
-	q := "select %s from %s where %s = '%s'"
-	tsql := fmt.Sprintf(q, tabel.Username, tabel.Uuid,
-		tabel.Phone, phone_number)
-	err := db.QueryRow(tsql).Scan(&username)
-	if err != nil {
-		fmt.Printf("GetUsernamefromPhonenumberInTable %v: %v\n", tabel, err)
 	}
 	return
 }
